@@ -4,11 +4,15 @@
  * November 1, 2020
  * The following file is used to handle calculating and display the days until the specified event
  *
+ * Updates
+ * -------
+ * December 11, 2020 -- N3rdP1um23 -- Updated to handle timezone requirements (America/Toronto)
+ *
  */
 
 // Import the requried items
 import * as Discord from 'discord.js';
-import * as moment from 'moment';
+import * as moment from 'moment-timezone';
 
 /**
  *
@@ -47,12 +51,12 @@ export function displayDaysUntilEvent(message: Discord.Message, args) {
 	}
 
 	// Calculate the days until the requeted event
-	var days_until_event = moment(moment().format('y') + '-' + events[requested_event]).diff(moment(), 'days');
+	var days_until_event = moment(moment().tz('America/Toronto').format('y') + '-' + events[requested_event]).tz('America/Toronto').diff(moment().tz('America/Toronto'), 'days');
 
 	// Check to see if the event has passed and attempt to grab the next years occurance of the event
 	if(days_until_event < 0) {
 		// Update an grab next years occurance
-		days_until_event = moment(moment().add(1, 'y').format('y') + '-' + events[requested_event]).diff(moment(), 'days');
+		days_until_event = moment(moment().tz('America/Toronto').add(1, 'y').format('y') + '-' + events[requested_event]).tz('America/Toronto').diff(moment().tz('America/Toronto'), 'days');
 	}
 
 	// Reply to the user with the remaining days until the event
