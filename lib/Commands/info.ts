@@ -55,7 +55,6 @@ export function displayUserInfo(message: Discord.Message) {
             let embed = {
                 embed: {
                     title: `${status_emoji[member.user.presence.status]} ${nick}'s Information`,
-					url: `${member.user.avatarURL().toString()}`,
                     description: `Chilling in ${member.user.presence.status.replace('dnd', 'do not disturb')} status!`,
                     color: ((member.roles.cache.size > 0) ? member.roles.cache.first().color : 3066993),
                     footer: {
@@ -104,6 +103,11 @@ export function displayUserInfo(message: Discord.Message) {
                 // Set the embed thumbnail to the users avatar
                 embed['embed']['thumbnail'] = {
                     'url': mention.avatarURL({ dynamic: true, size: 4096 })
+                };
+
+                // Set the embed URL
+                embed['embed']['url'] = {
+                    'url': member.user.avatarURL().toString()
                 };
             }
 
