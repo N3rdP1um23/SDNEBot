@@ -106,9 +106,7 @@ export function displayUserInfo(message: Discord.Message) {
                 };
 
                 // Set the embed URL
-                embed['embed']['url'] = {
-                    'url': member.user.avatarURL().toString()
-                };
+                embed['embed']['url'] = member.user.avatarURL().toString();
             }
 
             // Send the embed message
